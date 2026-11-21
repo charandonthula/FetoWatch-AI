@@ -1,0 +1,40 @@
+
+# Python cache
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Dataset files
+ml-training/data/raw/
+*.csv
+
+# Generated model artifacts (we will decide how to version these later)
+ml-training/models/*
+!ml-training/models/.gitkeep
+
+# Node dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
