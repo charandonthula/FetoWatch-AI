@@ -3,3 +3,4 @@ uvicorn[standard]
 xgboost
 pandas
 numpy
+shap

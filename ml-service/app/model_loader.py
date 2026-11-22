@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 from xgboost import XGBClassifier
+import shap
 
 
 # Locate the project root
@@ -33,3 +34,7 @@ ENCODED_TO_ORIGINAL = metadata["encoded_to_original"]
 
 print("FetoWatch model loaded successfully.")
 print("Number of expected features:", len(FEATURE_NAMES))
+
+explainer = shap.TreeExplainer(model)
+
+print("SHAP explainer initialized successfully.")
