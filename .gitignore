@@ -38,3 +38,17 @@ Thumbs.db
 
 # IDE
 .vscode/
+
+# Node
+node_modules/
+.env
+
+# Python
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local datasets
+ml-training/data/raw/
+ml-training/data/processed/
