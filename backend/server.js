@@ -8,10 +8,13 @@ const app = express();
 
 const authRoutes = require("./routes/authRoutes");
 
+const predictionRoutes = require("./routes/predictionRoutes");
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/predictions", predictionRoutes);
 
 // Routes
 app.get("/", (req, res) => {
