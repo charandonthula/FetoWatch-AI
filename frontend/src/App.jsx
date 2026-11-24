@@ -11,6 +11,8 @@ import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import Layout from "./components/layout/Layout";
 
+import PredictionResult from "./pages/PredictionResult";
+
 function App() {
   return (
     <AuthProvider>
@@ -25,6 +27,7 @@ function App() {
             <Route element={<Layout />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/predictions/new" element={<NewPrediction />} />
+              <Route path="/predictions/:id" element={<PredictionResult />} />
             </Route>
           </Route>
 

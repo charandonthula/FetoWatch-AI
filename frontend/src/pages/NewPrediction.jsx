@@ -298,8 +298,8 @@ const NewPrediction = () => {
               New prediction
             </button>
 
-            <Link to="/history" className="primary-link">
-              View history <ArrowRight size={17} />
+            <Link to={`/predictions/${result._id}`} className="primary-link">
+              View detailed explanation <ArrowRight size={17} />
             </Link>
           </div>
         </div>
