@@ -71,7 +71,48 @@ const getPredictionHistory = async (req, res) => {
     }
 };
 
+
+const mongoose = require("mongoose");
+
+const getPredictionById = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Validate the MongoDB ObjectId before querying.
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                message: "Invalid prediction ID."
+            });
+        }
+
+        // Only retrieve a record belonging to the logged-in user.
+        const prediction = await Prediction.findOne({
+            _id: id,
+            user: req.user.userId
+        });
+
+        if (!prediction) {
+            return res.status(404).json({
+                message: "Prediction not found."
+            });
+        }
+
+        return res.status(200).json({
+            prediction
+        });
+
+    } catch (error) {
+        console.error("Get prediction by ID error:", error.message);
+
+        return res.status(500).json({
+            message: "Unable to retrieve prediction."
+        });
+    }
+};
+
+
 module.exports = {
     createPrediction,
-    getPredictionHistory
+    getPredictionHistory,
+    getPredictionById
 };
