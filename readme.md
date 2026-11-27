@@ -301,9 +301,6 @@ ML_SERVICE_URL=http://localhost:8000
 VITE_API_URL=http://localhost:5000/api
 ```
 
-> 🔒 Never commit `.env` files, database passwords, or your JWT secret.
-> The variable names above must match the ones your code actually reads.
-
 ### 4️⃣ Run all three services
 
 Start each in its own terminal, in this order:
@@ -379,7 +376,6 @@ Allowed review statuses: `pending`, `reviewed`, `flagged`. These are workflow la
 | **Backend** | Middleware independently validates every protected request |
 | **Data isolation** | Queries use the authenticated user's ID, so users cannot read, update or delete each other's records |
 
-> Frontend confirmation dialogs are a usability safeguard, not a security control. Real access restrictions are enforced by the backend.
 
 ---
 
@@ -426,7 +422,6 @@ Suggestions and contributions are welcome.
 4. Commit: `git commit -m "feat: describe your change"`
 5. Push and open a pull request
 
-Please do not commit `.env` files, credentials, virtual environments or `node_modules`.
 
 ---
 
