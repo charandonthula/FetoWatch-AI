@@ -1999,3 +1999,64 @@ a {
         padding: 9px 12px;
     }
 }
+/* Prediction review status controls */
+
+.review-status-controls {
+    margin-top: 22px;
+}
+
+.review-status-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.review-status-button {
+    padding: 10px 20px;
+    border: 1px solid #d5ddea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #42536b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.review-status-button:hover:not(:disabled) {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.review-status-button.active {
+    background: #edf3ff;
+    border-color: #2563eb;
+    color: #2563eb;
+    cursor: default;
+}
+
+.review-status-button:disabled {
+    opacity: 0.75;
+}
+
+.review-status-feedback {
+    margin-top: 14px;
+    font-size: 14px;
+    color: #596981;
+}
+
+.review-status-feedback.success {
+    color: #159765;
+}
+
+.review-status-feedback.error {
+    color: #dc4545;
+}
+
+.review-status-note {
+    margin-top: 16px;
+    color: #78869a;
+    font-size: 13px;
+    line-height: 1.6;
+}
