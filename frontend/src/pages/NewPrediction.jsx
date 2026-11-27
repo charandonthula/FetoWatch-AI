@@ -12,6 +12,8 @@ import {
 
 import api from "../services/api";
 
+import { sampleProfiles } from "../data/sampleProfiles";
+
 // Preserve the exact feature names used by the trained model.
 const featureGroups = [
   {
@@ -159,16 +161,34 @@ const NewPrediction = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState(null);
+  const [selectedSample, setSelectedSample] = useState("");
 
   const handleChange = (key, value) => {
     setFeatures((previous) => ({
       ...previous,
       [key]: value,
     }));
+    setSelectedSample("");
+  };
+  const handleSelectSample = (profileKey) => {
+    const selectedProfile = sampleProfiles[profileKey];
+
+    const populatedFeatures = Object.fromEntries(
+      allFields.map((field) => [
+        field.key,
+        String(selectedProfile.features[field.key]),
+      ]),
+    );
+
+    setFeatures(populatedFeatures);
+    setSelectedSample(profileKey);
+    setError("");
+    setResult(null);
   };
 
   const handleReset = () => {
     setFeatures({ ...initialFeatures });
+    setSelectedSample("");
     setError("");
     setResult(null);
   };
@@ -324,6 +344,60 @@ const NewPrediction = () => {
           <span>Features</span>
         </div>
       </div>
+
+      <section className="sample-profiles-card">
+        <div className="sample-profiles-heading">
+          <div>
+            <p className="eyebrow">QUICK DEMONSTRATION</p>
+            <h2>Try a sample CTG profile</h2>
+            <p>
+              Select an example dataset record to automatically populate all 21
+              input fields.
+            </p>
+          </div>
+        </div>
+
+        <div className="sample-profiles-grid">
+          {Object.entries(sampleProfiles).map(([key, profile]) => (
+            <button
+              key={key}
+              type="button"
+              className={`sample-profile-button ${
+                selectedSample === key ? "active" : ""
+              }`}
+              onClick={() => handleSelectSample(key)}
+              disabled={loading}
+            >
+              <span className={`sample-profile-indicator ${key}`} />
+
+              <span className="sample-profile-content">
+                <strong>{profile.label}</strong>
+                <small>Dataset class {profile.originalClass}</small>
+              </span>
+
+              {selectedSample === key && (
+                <CheckCircle2 size={19} className="sample-profile-check" />
+              )}
+            </button>
+          ))}
+        </div>
+
+        {selectedSample && (
+          <div className="sample-profile-info">
+            <CheckCircle2 size={17} />
+            <span>
+              {sampleProfiles[selectedSample].description} All 21 fields have
+              been populated. You can edit them before generating a prediction.
+            </span>
+          </div>
+        )}
+
+        <p className="sample-profiles-note">
+          These are examples selected from the original research dataset. Their
+          original dataset labels are not supplied to the prediction model. The
+          model generates its own output.
+        </p>
+      </section>
 
       <form onSubmit={handleSubmit} className="prediction-form">
         {featureGroups.map((group, groupIndex) => (
