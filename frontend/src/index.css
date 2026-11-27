@@ -2410,3 +2410,521 @@ a {
         min-width: 105px;
     }
 }
+
+
+/* =========================================
+   FetoWatch AI - Dark Theme
+========================================= */
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    background: #111827;
+    color: #e5e7eb;
+}
+
+/* Global backgrounds and text */
+
+:root[data-theme="dark"] body,
+:root[data-theme="dark"] .app-layout {
+    background: #111827;
+    color: #e5e7eb;
+}
+
+:root[data-theme="dark"] .loading-screen {
+    color: #cbd5e1;
+}
+
+/* Sidebar and navigation */
+
+:root[data-theme="dark"] .sidebar,
+:root[data-theme="dark"] .topbar {
+    background: #1f2937;
+    border-color: #374151;
+}
+
+:root[data-theme="dark"] .sidebar-brand h2,
+:root[data-theme="dark"] .topbar-left strong,
+:root[data-theme="dark"] .user-details strong {
+    color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .nav-link {
+    color: #aab6c8;
+}
+
+:root[data-theme="dark"] .nav-link:hover {
+    background: #27364a;
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .nav-link.active {
+    background: #263b5c;
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .sidebar-info {
+    background: #202f46;
+    border-color: #344968;
+    color: #93b4eb;
+}
+
+:root[data-theme="dark"] .sidebar-info p,
+:root[data-theme="dark"] .sidebar-version,
+:root[data-theme="dark"] .sidebar-brand p,
+:root[data-theme="dark"] .sidebar-label {
+    color: #94a3b8;
+}
+
+/* Topbar */
+
+:root[data-theme="dark"] .topbar-left p,
+:root[data-theme="dark"] .user-details span {
+    color: #9ca3af;
+}
+
+:root[data-theme="dark"] .icon-button,
+:root[data-theme="dark"] .logout-button {
+    color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .icon-button:hover,
+:root[data-theme="dark"] .logout-button:hover {
+    background: #374151;
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .user-avatar {
+    background: #263b5c;
+    color: #93c5fd;
+}
+
+/* Page headings */
+
+:root[data-theme="dark"] .page-heading h1,
+:root[data-theme="dark"] .section-heading h2,
+:root[data-theme="dark"] .stat-card h2,
+:root[data-theme="dark"] .form-intro-card h2,
+:root[data-theme="dark"] .feature-section-heading h2,
+:root[data-theme="dark"] .result-success-heading h2,
+:root[data-theme="dark"] .result-overview-top h2,
+:root[data-theme="dark"] .result-section-heading h2,
+:root[data-theme="dark"] .history-table-heading h2,
+:root[data-theme="dark"] .history-stat-card h2 {
+    color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .page-heading > div > p:last-child,
+:root[data-theme="dark"] .section-heading p,
+:root[data-theme="dark"] .stat-card > p,
+:root[data-theme="dark"] .form-intro-card p,
+:root[data-theme="dark"] .feature-section-heading p,
+:root[data-theme="dark"] .result-overview-description,
+:root[data-theme="dark"] .result-section-heading p,
+:root[data-theme="dark"] .history-stat-card > p,
+:root[data-theme="dark"] .history-table-heading p {
+    color: #9ca3af;
+}
+
+/* Dashboard cards */
+
+:root[data-theme="dark"] .stat-card,
+:root[data-theme="dark"] .table-card,
+:root[data-theme="dark"] .feature-section,
+:root[data-theme="dark"] .form-intro-card,
+:root[data-theme="dark"] .form-bottom,
+:root[data-theme="dark"] .result-summary-card,
+:root[data-theme="dark"] .result-overview-card,
+:root[data-theme="dark"] .result-content-card,
+:root[data-theme="dark"] .result-error-card,
+:root[data-theme="dark"] .history-stat-card,
+:root[data-theme="dark"] .history-toolbar,
+:root[data-theme="dark"] .history-table-card,
+:root[data-theme="dark"] .sample-profiles-card {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+:root[data-theme="dark"] .stat-icon.blue,
+:root[data-theme="dark"] .empty-icon,
+:root[data-theme="dark"] .form-intro-icon,
+:root[data-theme="dark"] .section-number,
+:root[data-theme="dark"] .result-overview-icon,
+:root[data-theme="dark"] .notification-item-icon {
+    background: #263b5c;
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .stat-icon.orange {
+    background: #493721;
+    color: #fbbf75;
+}
+
+:root[data-theme="dark"] .stat-icon.green {
+    background: #1d4035;
+    color: #6ee7b7;
+}
+
+:root[data-theme="dark"] .stat-icon.red {
+    background: #482b32;
+    color: #fca5a5;
+}
+
+/* Tables */
+
+:root[data-theme="dark"] .prediction-table th,
+:root[data-theme="dark"] .history-table th,
+:root[data-theme="dark"] .shap-table th {
+    background: #263244;
+    color: #aab6c8;
+}
+
+:root[data-theme="dark"] .prediction-table td,
+:root[data-theme="dark"] .history-table td,
+:root[data-theme="dark"] .shap-table td {
+    color: #cbd5e1;
+    border-color: #374151;
+}
+
+:root[data-theme="dark"] .prediction-table tbody tr:hover,
+:root[data-theme="dark"] .history-table tbody tr:hover {
+    background: #273449;
+}
+
+:root[data-theme="dark"] .id-cell,
+:root[data-theme="dark"] .history-view-link {
+    color: #93c5fd !important;
+}
+
+:root[data-theme="dark"] .text-link {
+    color: #93c5fd;
+}
+
+/* Status badges */
+
+:root[data-theme="dark"] .status-badge.pending {
+    background: #493a22;
+    color: #fcd38d;
+}
+
+:root[data-theme="dark"] .status-badge.reviewed {
+    background: #1d4035;
+    color: #86efac;
+}
+
+:root[data-theme="dark"] .status-badge.flagged {
+    background: #482b32;
+    color: #fda4af;
+}
+
+:root[data-theme="dark"] .review-status {
+    background: #493a22;
+    color: #fcd38d;
+}
+
+/* Empty states */
+
+:root[data-theme="dark"] .empty-state h3,
+:root[data-theme="dark"] .history-empty-state h3,
+:root[data-theme="dark"] .result-error-card h2 {
+    color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .empty-state p,
+:root[data-theme="dark"] .history-empty-state p,
+:root[data-theme="dark"] .result-error-card p {
+    color: #9ca3af;
+}
+
+/* Forms and inputs */
+
+:root[data-theme="dark"] .feature-field label,
+:root[data-theme="dark"] .auth-form label {
+    color: #d1d5db;
+}
+
+:root[data-theme="dark"] .feature-field input,
+:root[data-theme="dark"] .input-wrapper,
+:root[data-theme="dark"] .history-search,
+:root[data-theme="dark"] .history-filter,
+:root[data-theme="dark"] .review-status-select {
+    background: #111827;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+:root[data-theme="dark"] .input-wrapper input,
+:root[data-theme="dark"] .history-search input,
+:root[data-theme="dark"] .history-filter select {
+    color: #e5e7eb;
+}
+
+:root[data-theme="dark"] .feature-field input::placeholder,
+:root[data-theme="dark"] .input-wrapper input::placeholder,
+:root[data-theme="dark"] .history-search input::placeholder {
+    color: #6b7280;
+}
+
+:root[data-theme="dark"] .feature-field input:focus,
+:root[data-theme="dark"] .input-wrapper:focus-within,
+:root[data-theme="dark"] .history-search:focus-within {
+    border-color: #60a5fa;
+}
+
+:root[data-theme="dark"] .review-status-select option,
+:root[data-theme="dark"] .history-filter select option {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+
+/* Form section details */
+
+:root[data-theme="dark"] .feature-section-heading,
+:root[data-theme="dark"] .result-metadata,
+:root[data-theme="dark"] .history-table-heading {
+    border-color: #374151;
+}
+
+:root[data-theme="dark"] .section-count,
+:root[data-theme="dark"] .result-class,
+:root[data-theme="dark"] .result-disclaimer,
+:root[data-theme="dark"] .shap-explanation-note {
+    background: #263244;
+    color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .feature-count span,
+:root[data-theme="dark"] .feature-field p,
+:root[data-theme="dark"] .result-record-id {
+    color: #9ca3af;
+}
+
+/* Buttons */
+
+:root[data-theme="dark"] .secondary-link,
+:root[data-theme="dark"] .secondary-button,
+:root[data-theme="dark"] .review-status-button,
+:root[data-theme="dark"] .history-refresh-button,
+:root[data-theme="dark"] .history-empty-button {
+    background: #263244;
+    border-color: #4b5563;
+    color: #d1d5db;
+}
+
+:root[data-theme="dark"] .secondary-link:hover,
+:root[data-theme="dark"] .secondary-button:hover,
+:root[data-theme="dark"] .history-refresh-button:hover:not(:disabled),
+:root[data-theme="dark"] .history-empty-button:hover {
+    background: #34445c;
+    border-color: #60a5fa;
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .review-status-button.active {
+    background: #263b5c;
+    border-color: #60a5fa;
+    color: #93c5fd;
+}
+
+/* Result probabilities and SHAP */
+
+:root[data-theme="dark"] .probability-item {
+    background: #263244;
+    border-color: #374151;
+}
+
+:root[data-theme="dark"] .probability-item strong,
+:root[data-theme="dark"] .result-class strong {
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .probability-track {
+    background: #374151;
+}
+
+:root[data-theme="dark"] .shap-neutral {
+    background: #374151;
+    color: #d1d5db;
+}
+
+:root[data-theme="dark"] .empty-shap-state {
+    background: #263244;
+    border-color: #4b5563;
+    color: #9ca3af;
+}
+
+/* Disclaimer cards */
+
+:root[data-theme="dark"] .dashboard-note,
+:root[data-theme="dark"] .prediction-disclaimer {
+    background: #202f46;
+    border-color: #344968;
+}
+
+:root[data-theme="dark"] .dashboard-note strong,
+:root[data-theme="dark"] .prediction-disclaimer strong {
+    color: #93b4eb;
+}
+
+:root[data-theme="dark"] .dashboard-note p,
+:root[data-theme="dark"] .prediction-disclaimer p {
+    color: #a8b8d1;
+}
+
+/* Sample profiles */
+
+:root[data-theme="dark"] .sample-profiles-heading h2,
+:root[data-theme="dark"] .sample-profile-content strong {
+    color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .sample-profiles-heading p,
+:root[data-theme="dark"] .sample-profile-content small,
+:root[data-theme="dark"] .sample-profiles-note {
+    color: #9ca3af;
+}
+
+:root[data-theme="dark"] .sample-profile-button {
+    background: #263244;
+    border-color: #4b5563;
+}
+
+:root[data-theme="dark"] .sample-profile-button.active {
+    background: #263b5c;
+    border-color: #60a5fa;
+}
+
+:root[data-theme="dark"] .sample-profile-info {
+    background: #1d4035;
+    color: #86efac;
+}
+
+/* Authentication pages */
+
+:root[data-theme="dark"] .auth-page {
+    background:
+        radial-gradient(circle at 10% 10%, #1e3353 0, transparent 35%),
+        radial-gradient(circle at 90% 90%, #1b3544 0, transparent 35%),
+        #111827;
+}
+
+:root[data-theme="dark"] .auth-card {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.2);
+}
+
+:root[data-theme="dark"] .auth-brand,
+:root[data-theme="dark"] .auth-heading h1 {
+    color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .brand-icon {
+    background: #263b5c;
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .auth-heading > p:last-child,
+:root[data-theme="dark"] .auth-footer {
+    color: #9ca3af;
+}
+
+:root[data-theme="dark"] .auth-disclaimer {
+    border-color: #374151;
+    color: #9ca3af;
+}
+
+/* Notification dropdown */
+
+:root[data-theme="dark"] .notification-dropdown {
+    background: #1f2937;
+    border-color: #374151;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+:root[data-theme="dark"] .notification-header,
+:root[data-theme="dark"] .notification-footer,
+:root[data-theme="dark"] .notification-item {
+    border-color: #374151;
+}
+
+:root[data-theme="dark"] .notification-header h3,
+:root[data-theme="dark"] .notification-empty p,
+:root[data-theme="dark"] .notification-item-content strong {
+    color: #f1f5f9;
+}
+
+:root[data-theme="dark"] .notification-header p,
+:root[data-theme="dark"] .notification-item-content > span,
+:root[data-theme="dark"] .notification-item-content small,
+:root[data-theme="dark"] .notification-empty {
+    color: #9ca3af;
+}
+
+:root[data-theme="dark"] .notification-item:hover,
+:root[data-theme="dark"] .notification-footer:hover {
+    background: #263244;
+}
+
+:root[data-theme="dark"] .notification-footer {
+    color: #93c5fd;
+}
+
+:root[data-theme="dark"] .notification-count {
+    border-color: #1f2937;
+}
+
+/* Feedback and errors */
+
+:root[data-theme="dark"] .status-feedback {
+    background: #1d4035;
+    border-color: #285c48;
+    color: #86efac;
+}
+
+:root[data-theme="dark"] .error-message {
+    background: #482b32;
+    border-color: #713b47;
+    color: #fda4af;
+}
+
+:root[data-theme="dark"] .review-status-feedback {
+    color: #cbd5e1;
+}
+
+:root[data-theme="dark"] .review-status-feedback.success {
+    color: #86efac;
+}
+
+:root[data-theme="dark"] .review-status-feedback.error {
+    color: #fda4af;
+}
+
+:root[data-theme="dark"] .review-status-note {
+    color: #9ca3af;
+}
+
+/* Theme transition */
+
+body,
+.app-layout,
+.sidebar,
+.topbar,
+.stat-card,
+.table-card,
+.feature-section,
+.form-intro-card,
+.form-bottom,
+.result-summary-card,
+.result-overview-card,
+.result-content-card,
+.history-stat-card,
+.history-toolbar,
+.history-table-card,
+.sample-profiles-card,
+.auth-card {
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
