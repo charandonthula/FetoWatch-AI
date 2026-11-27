@@ -110,9 +110,65 @@ const getPredictionById = async (req, res) => {
     }
 };
 
+const updatePredictionStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { reviewStatus } = req.body;
+
+        // Validate MongoDB ID.
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({
+                message: "Invalid prediction ID."
+            });
+        }
+
+        // Accept only the three supported workflow statuses.
+        const allowedStatuses = ["pending", "reviewed", "flagged"];
+
+        if (!allowedStatuses.includes(reviewStatus)) {
+            return res.status(400).json({
+                message: "Invalid review status. Use pending, reviewed, or flagged."
+            });
+        }
+
+        // Find and update only a record belonging to this user.
+        const prediction = await Prediction.findOneAndUpdate(
+            {
+                _id: id,
+                user: req.user.userId
+            },
+            {
+                $set: { reviewStatus }
+            },
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        if (!prediction) {
+            return res.status(404).json({
+                message: "Prediction not found."
+            });
+        }
+
+        return res.status(200).json({
+            message: "Prediction review status updated successfully.",
+            prediction
+        });
+
+    } catch (error) {
+        console.error("Update prediction status error:", error.message);
+
+        return res.status(500).json({
+            message: "Unable to update prediction review status."
+        });
+    }
+};
 
 module.exports = {
     createPrediction,
     getPredictionHistory,
-    getPredictionById
+    getPredictionById,
+    updatePredictionStatus
 };
