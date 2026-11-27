@@ -8,6 +8,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import { X } from "lucide-react";
 
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,6 +22,7 @@ const Topbar = () => {
   const [pendingPredictions, setPendingPredictions] = useState([]);
   const [notificationLoading, setNotificationLoading] = useState(false);
   const [notificationError, setNotificationError] = useState("");
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const [theme, setTheme] = useState(
     () => localStorage.getItem("fetowatch-theme") || "light",
   );
@@ -103,133 +105,190 @@ const Topbar = () => {
     .toUpperCase();
 
   return (
-    <header className="topbar">
-      <div className="topbar-left">
-        <p>
-          FetoWatch AI / <strong>Workspace</strong>
-        </p>
-      </div>
+    <>
+      <header className="topbar">
+        <div className="topbar-left">
+          <p>
+            FetoWatch AI / <strong>Workspace</strong>
+          </p>
+        </div>
 
-      <div className="topbar-right">
-        <button
-          className="icon-button theme-toggle"
-          type="button"
-          onClick={handleThemeToggle}
-          title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-          aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
-        >
-          {theme === "light" ? <Moon size={19} /> : <Sun size={19} />}
-        </button>
-        <div className="notification-wrapper">
+        <div className="topbar-right">
           <button
-            className="icon-button notification-button"
-            title="Notifications"
+            className="icon-button theme-toggle"
             type="button"
-            onClick={handleNotificationClick}
-            aria-label="Notifications"
-            aria-expanded={notificationsOpen}
+            onClick={handleThemeToggle}
+            title={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
+            aria-label={`Switch to ${theme === "light" ? "dark" : "light"} mode`}
           >
-            <Bell size={19} />
-
-            {pendingPredictions.length > 0 && (
-              <span className="notification-count">
-                {pendingPredictions.length > 99
-                  ? "99+"
-                  : pendingPredictions.length}
-              </span>
-            )}
+            {theme === "light" ? <Moon size={19} /> : <Sun size={19} />}
           </button>
+          <div className="notification-wrapper">
+            <button
+              className="icon-button notification-button"
+              title="Notifications"
+              type="button"
+              onClick={handleNotificationClick}
+              aria-label="Notifications"
+              aria-expanded={notificationsOpen}
+            >
+              <Bell size={19} />
 
-          {notificationsOpen && (
-            <div className="notification-dropdown">
-              <div className="notification-header">
-                <div>
-                  <h3>Notifications</h3>
-                  <p>
-                    {pendingPredictions.length} pending
-                    {pendingPredictions.length === 1
-                      ? " prediction"
-                      : " predictions"}
-                  </p>
+              {pendingPredictions.length > 0 && (
+                <span className="notification-count">
+                  {pendingPredictions.length > 99
+                    ? "99+"
+                    : pendingPredictions.length}
+                </span>
+              )}
+            </button>
+
+            {notificationsOpen && (
+              <div className="notification-dropdown">
+                <div className="notification-header">
+                  <div>
+                    <h3>Notifications</h3>
+                    <p>
+                      {pendingPredictions.length} pending
+                      {pendingPredictions.length === 1
+                        ? " prediction"
+                        : " predictions"}
+                    </p>
+                  </div>
                 </div>
+
+                {notificationLoading ? (
+                  <div className="notification-empty">
+                    Loading notifications...
+                  </div>
+                ) : notificationError ? (
+                  <div className="notification-empty notification-error">
+                    {notificationError}
+                  </div>
+                ) : pendingPredictions.length === 0 ? (
+                  <div className="notification-empty">
+                    <Bell size={23} />
+                    <p>You're all caught up!</p>
+                    <span>There are no pending predictions.</span>
+                  </div>
+                ) : (
+                  <div className="notification-list">
+                    {pendingPredictions.slice(0, 5).map((item) => (
+                      <Link
+                        key={item._id}
+                        to={`/predictions/${item._id}`}
+                        className="notification-item"
+                        onClick={() => setNotificationsOpen(false)}
+                      >
+                        <div className="notification-item-icon">
+                          <FileText size={17} />
+                        </div>
+
+                        <div className="notification-item-content">
+                          <strong>Prediction #{item._id.slice(-8)}</strong>
+
+                          <span>{item.predictedClass}</span>
+
+                          <small>
+                            <Clock size={12} />
+                            {formatDate(item.createdAt)}
+                          </small>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+
+                {pendingPredictions.length > 5 && (
+                  <Link
+                    to="/history"
+                    className="notification-footer"
+                    onClick={() => setNotificationsOpen(false)}
+                  >
+                    View all predictions
+                  </Link>
+                )}
               </div>
+            )}
+          </div>
 
-              {notificationLoading ? (
-                <div className="notification-empty">
-                  Loading notifications...
-                </div>
-              ) : notificationError ? (
-                <div className="notification-empty notification-error">
-                  {notificationError}
-                </div>
-              ) : pendingPredictions.length === 0 ? (
-                <div className="notification-empty">
-                  <Bell size={23} />
-                  <p>You're all caught up!</p>
-                  <span>There are no pending predictions.</span>
-                </div>
-              ) : (
-                <div className="notification-list">
-                  {pendingPredictions.slice(0, 5).map((item) => (
-                    <Link
-                      key={item._id}
-                      to={`/predictions/${item._id}`}
-                      className="notification-item"
-                      onClick={() => setNotificationsOpen(false)}
-                    >
-                      <div className="notification-item-icon">
-                        <FileText size={17} />
-                      </div>
-
-                      <div className="notification-item-content">
-                        <strong>Prediction #{item._id.slice(-8)}</strong>
-
-                        <span>{item.predictedClass}</span>
-
-                        <small>
-                          <Clock size={12} />
-                          {formatDate(item.createdAt)}
-                        </small>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {pendingPredictions.length > 5 && (
-                <Link
-                  to="/history"
-                  className="notification-footer"
-                  onClick={() => setNotificationsOpen(false)}
-                >
-                  View all predictions
-                </Link>
-              )}
+          <div className="topbar-user">
+            <div className="user-avatar">
+              {initials || <UserCircle size={22} />}
             </div>
-          )}
-        </div>
 
-        <div className="topbar-user">
-          <div className="user-avatar">
-            {initials || <UserCircle size={22} />}
+            <div className="user-details">
+              <strong>{user?.name || "User"}</strong>
+              <span>{user?.role || "Doctor"}</span>
+            </div>
           </div>
 
-          <div className="user-details">
-            <strong>{user?.name || "User"}</strong>
-            <span>{user?.role || "Doctor"}</span>
-          </div>
+          <button
+            className="logout-button"
+            onClick={() => setLogoutConfirmOpen(true)}
+            title="Logout"
+            type="button"
+          >
+            <LogOut size={18} />
+          </button>
         </div>
-
-        <button
-          className="logout-button"
-          onClick={handleLogout}
-          title="Logout"
-          type="button"
+      </header>
+      {logoutConfirmOpen && (
+        <div
+          className="confirmation-overlay"
+          onClick={() => setLogoutConfirmOpen(false)}
         >
-          <LogOut size={18} />
-        </button>
-      </div>
-    </header>
+          <div
+            className="confirmation-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="logout-modal-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="confirmation-icon logout-icon">
+              <LogOut size={24} />
+            </div>
+
+            <button
+              type="button"
+              className="confirmation-close"
+              onClick={() => setLogoutConfirmOpen(false)}
+              aria-label="Close confirmation"
+            >
+              <X size={19} />
+            </button>
+
+            <h2 id="logout-modal-title">Confirm logout</h2>
+
+            <p>
+              Are you sure you want to log out of FetoWatch AI? You will need to
+              sign in again to access your dashboard.
+            </p>
+
+            <div className="confirmation-actions">
+              <button
+                type="button"
+                className="confirmation-cancel"
+                onClick={() => setLogoutConfirmOpen(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                type="button"
+                className="confirmation-delete"
+                onClick={() => {
+                  setLogoutConfirmOpen(false);
+                  logout();
+                }}
+              >
+                Yes, logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

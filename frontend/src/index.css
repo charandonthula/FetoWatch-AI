@@ -2928,3 +2928,139 @@ body,
         border-color 0.2s ease,
         color 0.2s ease;
 }
+/* Confirmation Modal */
+
+.confirmation-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+}
+
+.confirmation-modal {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.2);
+    text-align: center;
+}
+
+.confirmation-icon {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.logout-icon {
+    background: #fff1f0;
+    color: #dc4444;
+}
+
+.confirmation-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+}
+
+.confirmation-close:hover {
+    background: #f1f5f9;
+}
+
+.confirmation-modal h2 {
+    margin: 0 0 10px;
+    color: #172b4d;
+    font-size: 21px;
+}
+
+.confirmation-modal p {
+    margin: 0;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.confirmation-actions button {
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.confirmation-cancel {
+    border: 1px solid #dce3ed;
+    background: #ffffff;
+    color: #334155;
+}
+
+.confirmation-delete {
+    border: 1px solid #dc4444;
+    background: #dc4444;
+    color: #ffffff;
+}
+
+.confirmation-delete:hover {
+    background: #c83232;
+}
+
+.confirmation-cancel:hover {
+    background: #f1f5f9;
+}
+
+/* Dark theme support */
+
+:root[data-theme="dark"] .confirmation-modal {
+    background: #172338;
+    border-color: #2b3b52;
+}
+
+:root[data-theme="dark"] .confirmation-modal h2 {
+    color: #e2e8f0;
+}
+
+:root[data-theme="dark"] .confirmation-modal p {
+    color: #9aabc2;
+}
+
+:root[data-theme="dark"] .confirmation-close {
+    color: #9aabc2;
+}
+
+:root[data-theme="dark"] .confirmation-close:hover {
+    background: #24354d;
+}
+
+:root[data-theme="dark"] .confirmation-cancel {
+    background: #111d30;
+    border-color: #34465f;
+    color: #e2e8f0;
+}
