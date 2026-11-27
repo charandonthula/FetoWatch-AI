@@ -7,7 +7,10 @@ import {
     Filter,
     Clock,
     Eye,
-    RefreshCw
+    RefreshCw,
+    Trash2,
+    AlertTriangle,
+    X
 } from "lucide-react";
 
 import { Link } from "react-router-dom";
@@ -24,6 +27,14 @@ const History = () => {
 
     const [refreshKey, setRefreshKey] = useState(0);
 
+    // Deletion state
+    const [confirmation, setConfirmation] = useState(null);
+    const [deletingId, setDeletingId] = useState(null);
+    const [clearingHistory, setClearingHistory] = useState(false);
+    const [deleteError, setDeleteError] = useState("");
+
+    const deletionInProgress = Boolean(deletingId) || clearingHistory;
+
     useEffect(() => {
         const fetchPredictions = async () => {
             setLoading(true);
@@ -31,7 +42,6 @@ const History = () => {
 
             try {
                 const response = await api.get("/predictions");
-
                 setPredictions(response.data.predictions || []);
             } catch (err) {
                 setError(
@@ -45,6 +55,23 @@ const History = () => {
 
         fetchPredictions();
     }, [refreshKey]);
+
+    // Allow Escape to close the confirmation modal.
+    useEffect(() => {
+        if (!confirmation) return;
+
+        const handleEscape = (event) => {
+            if (event.key === "Escape" && !deletionInProgress) {
+                setConfirmation(null);
+            }
+        };
+
+        window.addEventListener("keydown", handleEscape);
+
+        return () => {
+            window.removeEventListener("keydown", handleEscape);
+        };
+    }, [confirmation, deletionInProgress]);
 
     const totalPredictions = predictions.length;
 
@@ -98,6 +125,63 @@ const History = () => {
         setStatusFilter("all");
     };
 
+    const openDeleteConfirmation = (type, id = null) => {
+        setDeleteError("");
+        setConfirmation({ type, id });
+    };
+
+    const handleDelete = async () => {
+        if (!confirmation || deletionInProgress) return;
+
+        const { type, id } = confirmation;
+
+        setDeleteError("");
+
+        if (type === "single") {
+            setDeletingId(id);
+        } else {
+            setClearingHistory(true);
+        }
+
+        try {
+            if (type === "single") {
+                await api.delete(`/predictions/${id}`);
+
+                setPredictions((current) =>
+                    current.filter((item) => item._id !== id)
+                );
+            } else {
+                await api.delete("/predictions");
+
+                setPredictions([]);
+                resetFilters();
+            }
+
+            setConfirmation(null);
+
+            // Notify other components, including the notification dropdown.
+            window.dispatchEvent(new Event("predictions-updated"));
+
+        } catch (err) {
+            setDeleteError(
+                err.response?.data?.message ||
+                "Unable to delete prediction records. Please try again."
+            );
+        } finally {
+            setDeletingId(null);
+            setClearingHistory(false);
+        }
+    };
+
+    const closeConfirmation = () => {
+        if (deletionInProgress) return;
+
+        setConfirmation(null);
+        setDeleteError("");
+    };
+
+    const isBulkDelete = confirmation?.type === "all";
+
     return (
         <div className="history-page">
 
@@ -111,20 +195,39 @@ const History = () => {
                     </p>
                 </div>
 
-                <button
-                    className="history-refresh-button"
-                    onClick={() => setRefreshKey((current) => current + 1)}
-                    disabled={loading}
-                >
-                    <RefreshCw size={17} />
-                    Refresh
-                </button>
+                <div className="history-heading-actions">
+                    {predictions.length > 0 && (
+                        <button
+                            className="history-clear-all-button"
+                            onClick={() => openDeleteConfirmation("all")}
+                            disabled={deletionInProgress}
+                        >
+                            <Trash2 size={17} />
+                            Clear history
+                        </button>
+                    )}
+
+                    <button
+                        className="history-refresh-button"
+                        onClick={() => setRefreshKey((current) => current + 1)}
+                        disabled={loading || deletionInProgress}
+                    >
+                        <RefreshCw size={17} />
+                        Refresh
+                    </button>
+                </div>
             </div>
 
-            {/* Error message */}
+            {/* Error messages */}
             {error && (
                 <div className="error-message">
                     {error}
+                </div>
+            )}
+
+            {deleteError && !confirmation && (
+                <div className="error-message">
+                    {deleteError}
                 </div>
             )}
 
@@ -316,7 +419,7 @@ const History = () => {
                                     <th>Predicted class</th>
                                     <th>Review status</th>
                                     <th>Date created</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -350,13 +453,28 @@ const History = () => {
                                         </td>
 
                                         <td>
-                                            <Link
-                                                to={`/predictions/${item._id}`}
-                                                className="history-view-link"
-                                            >
-                                                <Eye size={16} />
-                                                View details
-                                            </Link>
+                                            <div className="history-row-actions">
+                                                <Link
+                                                    to={`/predictions/${item._id}`}
+                                                    className="history-view-link"
+                                                >
+                                                    <Eye size={16} />
+                                                    View details
+                                                </Link>
+
+                                                <button
+                                                    type="button"
+                                                    className="history-delete-button"
+                                                    onClick={() =>
+                                                        openDeleteConfirmation("single", item._id)
+                                                    }
+                                                    disabled={deletionInProgress}
+                                                    aria-label={`Delete prediction ${item._id}`}
+                                                    title="Delete prediction"
+                                                >
+                                                    <Trash2 size={16} />
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
@@ -380,6 +498,81 @@ const History = () => {
                     </p>
                 </div>
             </div>
+
+            {/* Deletion confirmation modal */}
+            {confirmation && (
+                <div
+                    className="confirmation-overlay"
+                    onClick={closeConfirmation}
+                >
+                    <div
+                        className="confirmation-modal"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="delete-modal-title"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        <div className="confirmation-icon delete-icon">
+                            <AlertTriangle size={24} />
+                        </div>
+
+                        <button
+                            type="button"
+                            className="confirmation-close"
+                            onClick={closeConfirmation}
+                            disabled={deletionInProgress}
+                            aria-label="Close confirmation"
+                        >
+                            <X size={19} />
+                        </button>
+
+                        <h2 id="delete-modal-title">
+                            {isBulkDelete
+                                ? "Clear all prediction history?"
+                                : "Delete this prediction?"
+                            }
+                        </h2>
+
+                        <p>
+                            {isBulkDelete
+                                ? "This will permanently delete all your saved prediction records. This action cannot be undone."
+                                : "This prediction record will be permanently deleted. This action cannot be undone."
+                            }
+                        </p>
+
+                        {deleteError && (
+                            <div className="error-message confirmation-error">
+                                {deleteError}
+                            </div>
+                        )}
+
+                        <div className="confirmation-actions">
+                            <button
+                                type="button"
+                                className="confirmation-cancel"
+                                onClick={closeConfirmation}
+                                disabled={deletionInProgress}
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                type="button"
+                                className="confirmation-delete"
+                                onClick={handleDelete}
+                                disabled={deletionInProgress}
+                            >
+                                {deletionInProgress
+                                    ? "Deleting..."
+                                    : isBulkDelete
+                                        ? "Delete all"
+                                        : "Delete prediction"
+                                }
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
         </div>
     );

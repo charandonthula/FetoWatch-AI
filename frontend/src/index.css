@@ -3064,3 +3064,112 @@ body,
     border-color: #34465f;
     color: #e2e8f0;
 }
+
+
+/* =========================================
+   Prediction History - Deletion Actions
+========================================= */
+
+.history-heading-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.history-clear-all-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 1px solid #f0c5c5;
+    border-radius: 8px;
+    background: #fff5f5;
+    color: #c83232;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.history-clear-all-button:hover {
+    background: #ffe8e8;
+}
+
+.history-clear-all-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.history-row-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.history-delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: 1px solid #f0c5c5;
+    border-radius: 7px;
+    background: #fff5f5;
+    color: #d14343;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.history-delete-button:hover {
+    background: #ffe1e1;
+    border-color: #e5a0a0;
+}
+
+.history-delete-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.delete-icon {
+    background: #fff1f0;
+    color: #dc4444;
+}
+
+.confirmation-error {
+    margin-top: 16px;
+    text-align: left;
+}
+
+:root[data-theme="dark"] .history-clear-all-button,
+:root[data-theme="dark"] .history-delete-button {
+    background: #38232b;
+    border-color: #69404b;
+    color: #ff9b9b;
+}
+
+:root[data-theme="dark"] .history-clear-all-button:hover,
+:root[data-theme="dark"] .history-delete-button:hover {
+    background: #4a2934;
+}
+
+:root[data-theme="dark"] .delete-icon {
+    background: #482b35;
+    color: #ff9b9b;
+}
+
+@media (max-width: 600px) {
+    .history-heading-actions {
+        width: 100%;
+    }
+
+    .history-heading-actions button {
+        flex: 1;
+    }
+
+    .history-row-actions {
+        gap: 8px;
+    }
+}
