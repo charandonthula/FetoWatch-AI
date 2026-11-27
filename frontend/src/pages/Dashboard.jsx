@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import {
     Activity,
@@ -18,6 +19,8 @@ const Dashboard = () => {
     const [predictions, setPredictions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
+    const [statusFeedback, setStatusFeedback] = useState("");
+    const [statusUpdatingId, setStatusUpdatingId] = useState(null);
 
     useEffect(() => {
         const fetchPredictions = async () => {
@@ -37,6 +40,42 @@ const Dashboard = () => {
 
         fetchPredictions();
     }, []);
+
+    const handleStatusChange = async (predictionId, newStatus) => {
+        setStatusUpdatingId(predictionId);
+        setError("");
+        setStatusFeedback("");
+
+        try {
+            const response = await api.patch(
+                `/predictions/${predictionId}/status`,
+                { reviewStatus: newStatus }
+            );
+
+            const updatedStatus =
+                response.data.prediction?.reviewStatus || newStatus;
+
+            setPredictions((previousPredictions) =>
+                previousPredictions.map((item) =>
+                    item._id === predictionId
+                        ? { ...item, reviewStatus: updatedStatus }
+                        : item
+                )
+            );
+
+            setStatusFeedback("Review status updated successfully.");
+
+            // Notify the Topbar so its pending notification count refreshes.
+            window.dispatchEvent(new Event("predictions-updated"));
+        } catch (err) {
+            setError(
+                err.response?.data?.message ||
+                "Unable to update the review status."
+            );
+        } finally {
+            setStatusUpdatingId(null);
+        }
+    };
 
     const totalPredictions = predictions.length;
 
@@ -77,6 +116,12 @@ const Dashboard = () => {
             {error && (
                 <div className="error-message">
                     {error}
+                </div>
+            )}
+
+            {statusFeedback && (
+                <div className="status-feedback">
+                    {statusFeedback}
                 </div>
             )}
 
@@ -176,6 +221,7 @@ const Dashboard = () => {
                                         <th>Predicted class</th>
                                         <th>Review status</th>
                                         <th>Date</th>
+                                        <th>Update status</th>
                                     </tr>
                                 </thead>
 
@@ -198,6 +244,31 @@ const Dashboard = () => {
 
                                             <td>
                                                 {formatDate(item.createdAt)}
+                                            </td>
+
+                                            <td>
+                                                <select
+                                                    className="review-status-select"
+                                                    value={item.reviewStatus}
+                                                    disabled={statusUpdatingId === item._id}
+                                                    onChange={(event) =>
+                                                        handleStatusChange(
+                                                            item._id,
+                                                            event.target.value
+                                                        )
+                                                    }
+                                                    aria-label={`Update review status for prediction ${item._id.slice(-8)}`}
+                                                >
+                                                    <option value="pending">Pending</option>
+                                                    <option value="reviewed">Reviewed</option>
+                                                    <option value="flagged">Flagged</option>
+                                                </select>
+
+                                                {statusUpdatingId === item._id && (
+                                                    <span className="status-saving">
+                                                        Saving...
+                                                    </span>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
