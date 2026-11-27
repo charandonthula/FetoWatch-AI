@@ -13,6 +13,8 @@ import Layout from "./components/layout/Layout";
 
 import PredictionResult from "./pages/PredictionResult";
 
+import History from "./pages/History";
+
 function App() {
   return (
     <AuthProvider>
@@ -28,6 +30,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/predictions/new" element={<NewPrediction />} />
               <Route path="/predictions/:id" element={<PredictionResult />} />
+              <Route path="/history" element={<History />} />
             </Route>
           </Route>
 
