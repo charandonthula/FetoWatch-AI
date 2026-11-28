@@ -20,6 +20,8 @@ ml-training/data/raw/
 
 # Generated model artifacts (we will decide how to version these later)
 ml-training/models/*
+!ml-training/models/fetowatch_xgb.json
+!ml-training/models/model_metadata.json
 !ml-training/models/.gitkeep
 
 # Node dependencies
