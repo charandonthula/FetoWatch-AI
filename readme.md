@@ -2,6 +2,9 @@
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:0f172a,50:0891b2,100:7c3aed&height=220&section=header&text=FetoWatch%20AI&fontSize=68&fontColor=ffffff&fontAlignY=38&desc=Explainable%20Machine%20Learning%20for%20Fetal%20CTG%20Classification&descAlignY=58&descSize=18&animation=fadeIn" width="100%"/>
 
+[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Visit%20Site-0891b2?style=for-the-badge&labelColor=0f172a)](https://fetowatch-ai.netlify.app/)
+[![Backend API](https://img.shields.io/badge/⚙️%20Backend%20API-Render-10b981?style=for-the-badge&labelColor=065f46)](https://fetowatch-backend.onrender.com/)
+[![ML Service](https://img.shields.io/badge/🧠%20ML%20Service-Render-7c3aed?style=for-the-badge&labelColor=3b0764)](https://fetowatch-ml-service.onrender.com)
 [![GitHub](https://img.shields.io/badge/GitHub-Source%20Code-181717?style=for-the-badge&logo=github)](https://github.com/charandonthula/FetoWatch-AI)
 [![Status](https://img.shields.io/badge/Status-Educational%20Prototype-0891b2?style=for-the-badge)](#-important-disclaimer)
 [![XGBoost](https://img.shields.io/badge/Model-XGBoost-ff6600?style=for-the-badge)](#-machine-learning)
@@ -18,6 +21,8 @@
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=flat-square&logo=fastapi&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black)
 
 </div>
 
@@ -152,6 +157,7 @@ flowchart TD
 | **ML Service** | Python, FastAPI |
 | **Machine Learning** | XGBoost, SHAP, Pandas, NumPy |
 | **Experimentation** | Jupyter Notebook |
+| **Deployment** | Netlify (frontend), Render (backend and ML service) |
 | **Version Control** | Git and GitHub |
 
 ---
@@ -230,6 +236,16 @@ FetoWatch-AI/
 │
 └── README.md
 ```
+
+---
+
+## 🌐 Live Deployment
+
+| Service | Platform | Link |
+|:---|:---:|:---|
+| ⚛️ **Frontend** | ![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat-square&logo=netlify&logoColor=white) | [fetowatch-ai.netlify.app](https://fetowatch-ai.netlify.app/) |
+| 🟢 **Backend API** | ![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black) | [fetowatch-backend.onrender.com](https://fetowatch-backend.onrender.com/) |
+| 🐍 **ML Service** | ![Render](https://img.shields.io/badge/Render-46E3B7?style=flat-square&logo=render&logoColor=black) | [fetowatch-ml-service.onrender.com](https://fetowatch-ml-service.onrender.com) |
 
 ---
 
@@ -386,7 +402,7 @@ Allowed review statuses: `pending`, `reviewed`, `flagged`. These are workflow la
 - **Clinical:** Not clinically validated or regulator-approved. Never use for diagnosis or patient care.
 - **Explainability:** SHAP explains the model, not the underlying medical condition.
 - **Input quality:** Unrealistic inputs can produce misleading outputs.
-- **Deployment:** Built as a local development prototype and would need more security, monitoring and validation for production.
+- **Deployment:** Deployed as a demonstration prototype. Real-world use would need more security, monitoring and validation.
 
 ---
 
@@ -399,6 +415,7 @@ Allowed review statuses: `pending`, `reviewed`, `flagged`. These are workflow la
    ✔ JWT authentication and protected routes
    ✔ Dashboard, history, search and filters
    ✔ Light / dark theme
+   ✔ Cloud deployment (Netlify + Render)
 
 🚧 Planned
    ⬜ Independent external model validation
@@ -407,7 +424,7 @@ Allowed review statuses: `pending`, `reviewed`, `flagged`. These are workflow la
    ⬜ Prediction export
    ⬜ Audit logging
    ⬜ Accessibility improvements
-   ⬜ Production deployment and monitoring
+   ⬜ Service monitoring
 ```
 
 ---
